@@ -4,10 +4,10 @@ SELECT
     metadata_jobPostId,
     postedCompany_name,
     title,
-    parsed_records.id,
-    parsed_records.category
+    parsed_categories.id,
+    parsed_categories.category
 FROM categoriestable,
 UNNEST(
     CAST(categories AS STRUCT(id INT, category VARCHAR)[])
-) AS t(parsed_records)
+) AS t(parsed_categories)
 ORDER BY metadata_jobPostId ASC
