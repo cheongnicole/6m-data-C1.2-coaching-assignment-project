@@ -1,5 +1,5 @@
 --Parsing categories column (JSON array) using DBgate, with metadata_jobPostId as unique job ID
-WITH categoriestable AS (SELECT metadata_jobPostId, postedCompany_name, title, categories FROM SGJobData WHERE metadata_jobPostId NOT NULL)
+WITH categoriestable AS (SELECT metadata_jobPostId, postedCompany_name, title, categories FROM SGJobData WHERE metadata_jobPostId IS NOT NULL)
 SELECT
     metadata_jobPostId,
     postedCompany_name,
