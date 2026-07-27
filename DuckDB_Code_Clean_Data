@@ -1,0 +1,55 @@
+-- create a new table which will split the categories column into id and category with respect to the jobpostID
+-- If there are 3 categories per jobpostID, there will be 3 rows per jobpostID
+CREATE TABLE Job_Categories_By_PostID AS
+SELECT
+    metadata_jobPostID,
+    json_extract_string(c.value, '$.category') AS category,
+    json_extract_string(c.value, '$.id') AS category_id
+FROM SGJobData50000,
+json_each(categories) AS c;
+
+
+--Remove any NULL rows in the original data
+CREATE TABLE SGJobData50000_Clean AS
+SELECT * EXCLUDE(occupationId)
+FROM SGJobData50000
+WHERE 
+    categories IS NOT NULL
+    AND employmentTypes is NOT NULL
+    AND metadata_expiryDate is NOT NULL
+    AND metadata_expiryDate is NOT NULL
+    AND metadata_isPostedOnBehalf is NOT NULL
+    AND metadata_jobPostId is NOT NULL
+    AND metadata_newPostingDate is NOT NULL
+    AND metadata_originalPostingDate is NOT NULL
+    AND metadata_repostCount is NOT NULL
+    AND metadata_totalNumberJobApplication is NOT NULL
+    AND metadata_totalNumberOfView is NOT NULL
+    AND minimumYearsExperience is NOT NULL
+    AND numberOfVacancies is NOT NULL
+    AND positionLevels is NOT NULL
+    AND postedCompany_name is NOT NULL
+    AND salary_maximum is NOT NULL
+    AND salary_minimum is NOT NULL
+    AND salary_type is NOT NULL
+    AND status_id is NOT NULL
+    AND status_jobStatus is NOT NULL
+    AND title is NOT NULL
+    AND average_salary is NOT NULL;
+
+
+--Join the 2 tables and exclude the categories table since its already parsed into 2 new columns called category and category_id
+CREATE TABLE SGJobData50000_Clean_Category AS
+SELECT
+    *EXCLUDE(categories)
+FROM SGJobData50000_Clean AS j
+INNER JOIN Job_Categories_By_PostID AS c
+    ON j.metadata_jobPostID = c.metadata_jobPostID;
+
+--copy the clean data out    
+COPY SGJobData50000_Clean_Category
+TO 'C:\Users\Prakash Yanaprakasam\Downloads\SGJobData50000_Clean_Category.csv'
+WITH (
+    HEADER,
+    DELIMITER ','
+);
