@@ -169,9 +169,7 @@ The dashboard uses **candidate response**: applications per vacancy, and applica
 
 These feed a **sector hiring tightness score.** A weighted rank combining low applications per vacancy, low application rate, and high median pay which is presented as a four-level label (Easier / Balanced / Tighter / Tightest) rather than a raw number. 
 
-A scatter "hiring map" places every sector on pay versus candidate response with median crosshairs, so the user can see the whole market at once: bottom-right is expensive and hard to fill, top-left is cheap and easy.
-
-An always-visible explainer panel defines both metrics and states why repost count was rejected, a caveat to show assumptions made on the page.
+A **sector × experience-band heatmap** carries the same measure across two dimensions at once, so difficulty can be read as a combination rather than a single ranking. A sector may be easy to staff at entry level and hard at ten years. When one sector is selected the rows switch to role families within it, following the same drill-down rule as the rest of the app. Its heading is generated from the data, naming the thinnest and deepest cells rather than labelling the chart, so the finding is stated before the reader interprets the colours.
 
 ### Guardrails carried into the design
 
@@ -214,6 +212,8 @@ Act 3 deliberately stops at the choice. The dashboard's job is to make the compa
 - Salary fields are noisy. They include placeholders, and some recruiter postings carry very wide salary bands. 
 
 - Titles are inconsistent. Recruiter codes, embedded salary snippets, location hints and formatting noise all appear in the title field, and different companies describe similar roles differently. This limits how reliably the actual skillsets required for a role can be inferred from the data.
+
+- Sector labels do not always describe the work. Information Technology postings mix building roles with the sales, admin and support roles. The dashboard handles this with a declared core-tech subset, which works but is a hand-picked exception rather than a rule the data produced.
 
 - Time trend may reflect dataset coverage, not only market growth. Posting counts ramp sharply across initial months, which may reflect how the dataset was collected or retained rather than genuine market expansion. Separating real signal from extraction bias is not straightforward.
 
