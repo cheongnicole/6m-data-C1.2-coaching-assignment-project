@@ -85,7 +85,7 @@ Counting postings off the exploded table would count a job in three industries t
 
 A set of unit-conversion rules repaired salaries quoted hourly or annually into a common monthly basis, applied in a deliberate order because an early fix can reveal what a later rule needs to see. Any outliers are not dropped and were flagged instead.
 
-**The house pattern: flag, don't delete.** Throughout the notebook, a row with one bad field is never deleted. The untrusted *value* is blanked or a flag is set, and the row survives:
+**Flag, don't delete.** Throughout the notebook, a row with one bad field is never deleted. The untrusted *value* is blanked or a flag is set, and the row survives:
 
 | Problem | Response |
 |---|---|
@@ -97,7 +97,7 @@ The payoff is that a posting with a typo'd salary still counts toward hiring poo
 
 **Filtering happens last.** Because the reliability filter runs *after* the unit conversions, thousands of postings that an early filter would have binned were rescued into the usable band. The final usable share for salary analysis is **99.6%** of postings, a net gain over filtering up front. 
 
-**Industries and roles.** The JSON industry field was parsed defensively (a malformed row returns empty rather than crashing a 629k-row run) into list columns, then exploded into the long table — 43 distinct industries. Because the brief covers benchmarking by *role* as well as by industry, a second pass tagged each posting with role families derived from the cleaned title. Titles matching nothing are labelled "Other / Unclassified" rather than silently dropped.
+**Industries and roles.** The JSON industry field was parsed defensively (a malformed row returns empty rather than crashing a 629k-row run) into list columns, then exploded into the long table — 43 distinct industries. Because the brief covers benchmarking by **role** as well as by industry, a second pass tagged each posting with role families derived from the cleaned title. Titles matching nothing are labelled "Other / Unclassified" rather than silently dropped.
 
 **Analysis groupings.** Finally, continuous fields were bucketed into decision-friendly variables: experience bands, employment type groups, and posting month for the time series.
 
@@ -133,23 +133,23 @@ Five metric cards sit above the tabs:
 - average applications per vacancy
 - average application rate. 
 
-Each with a delta against the whole dataset. Above them, a one-sentence auto-written summary states which sector leads the filtered view, what it pays, and whether candidate response is stronger, weaker or in line with the wider market. The user gets a readable answer before looking at a single chart.
+Each with a delta against the whole dataset. Above them, a one-sentence summary states which sector leads the filtered view, what it pays, and whether candidate response is stronger, weaker or in line with the wider market. 
 
 ### Measuring hiring difficulty
 
 The dashboard uses **candidate response**: applications per vacancy, and applications as a share of views.
 
-These feed a **sector hiring tightness score.** A weighted rank combining low applications per vacancy, low application rate, and high median pay which is presented as a four-level label (Easier / Balanced / Tighter / Tightest) rather than a raw number, because the underlying score is ordinal, not a quantity. 
+These feed a **sector hiring tightness score.** A weighted rank combining low applications per vacancy, low application rate, and high median pay which is presented as a four-level label (Easier / Balanced / Tighter / Tightest) rather than a raw number. 
 
 A scatter "hiring map" places every sector on pay versus candidate response with median crosshairs, so the user can see the whole market at once: bottom-right is expensive and hard to fill, top-left is cheap and easy.
 
-An always-visible explainer panel defines both metrics and states why repost count was rejected. The assumption is on the page, not buried in the code.
+An always-visible explainer panel defines both metrics and states why repost count was rejected, a caveat to show assumptions made on the page.
 
 ### Guardrails carried into the design
 
 - **Minimum postings per benchmark:** (slider, default 100) No median or response figure is drawn on a thin slice.
 - **Salary-clean rows only:** (on by default) Pay maths runs on the reliable subset while demand counts use every posting
-- **Coverage shading on the time series:** Months before the volume ramp are shaded and captioned as likely collection artefact rather than market contraction. The chart title says "becomes more reliable from March 2023 onward" instead of implying growth.
+- **Coverage shading on the time series:** Months before the volume ramp are shaded and captioned as likely collection anomaly rather than market contraction. The chart title says "becomes more reliable from March 2023 onward" instead of implying growth.
 - **Salary trend split by experience band:** Rather than one overall line, because a single trend would move with the seniority mix rather than with pay.
 - **Unclassified roles excluded from the role comparison:** Roles carrying a usable role label stated on screen.
 
