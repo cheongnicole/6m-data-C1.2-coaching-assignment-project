@@ -122,16 +122,44 @@ The header states the purpose in plain language:
 | **Where hiring looks tighter** | Which sectors and roles attract the weakest candidate response, i.e. where hiring will be hardest |
 | **Filtered data** | The underlying postings |
 
+
 A shared sidebar filters every tab at once, so the user carries one consistent market definition across all three questions.
+
+### Overview mode and comparison mode
+
+The app runs in **two modes**, and switches automatically based on how narrow the filters are.
+
+- **Overview mode** (no sector or job-family filter): rank and compare. Which sector leads demand, which pays most, which is tightest.
+- **Comparison mode** (one sector, job family, title search, employment type or experience band selected): stop ranking, start benchmarking. The selected slice is named as a **scope** and measured against the wider market for the same date range.
+
+The scope is written at the top of the page 
+> "all roles in view", "roles in Information Technology", "Data / Analytics roles" 
+
+followed by filter badges and a summary sentence stating how the scope compares on pay, applications per vacancy, application rate, and share of captured postings. 
+
+Each panel has a defined comparison-mode form:
+
+| Panel | Overview mode | Comparison mode |
+|---|---|---|
+| Sector demand | Top 10 sectors ranked | Donut showing the scope's share of captured market demand |
+| Demand over time | One volume line | Scope line against the largest peer sectors |
+| Experience mix | Volume by band | Dumbbell comparing the scope's mix against the market's |
+| Sector pay | Top 10 sectors by median pay | Scope marker against peer sectors, with the market median as a dashed reference |
+| Pay by experience | Volume bars + pay line | Locked to the selected band; the peer-sector pay trend takes over |
+| Hiring map | Scatter of all sectors on pay vs response | Scope's rank position among sectors on tightness |
+| Role response | Weakest job families ranked | Within a single sector, which experience bands draw fewest applicants |
+
+The pattern is consistent: **when a chart's grouping dimension collapses to one value, the chart changes dimension rather than degrading.** Either it drills to the next level down (sector to experience band), or it switches from ranking to benchmarking against the market.
 
 ### Headline strip
 
-Five metric cards sit above the tabs: 
+Six metric cards sit above the tabs: 
 - postings in view
 - hiring companies
 - median monthly salary
-- average applications per vacancy
-- average application rate. 
+- applications per vacancy
+- application rate
+- share of market
 
 Each with a delta against the whole dataset. Above them, a one-sentence summary states which sector leads the filtered view, what it pays, and whether candidate response is stronger, weaker or in line with the wider market. 
 
@@ -159,21 +187,21 @@ Each tab is written to carry the reader through **three acts**, with the chart l
 
 **Tab 1 — Where demand sits**
 
-- *Context:* You are entering a market of 619,000 postings and 52,800 hiring companies
-- *Finding:* Demand is concentrated where Information Technology leads with 68,186 postings, and the market leans mid-level, with 2–4 years the largest experience band by a wide margin.
-- *Decision:* Your entry team will be competing hardest in the sectors and seniority bands where everyone else is already hiring. **Do you hire where the pool is deepest, or where it is quieter?**
+- **Context:** You are entering a market of 626,968 postings and 53,060 hiring companies
+- **Finding:** Demand is concentrated where Information Technology leads with most postings, and the market leans mid-level, with 2–4 years the largest experience band by a wide margin.
+- **Decision:** Your entry team will be competing hardest in the sectors and seniority bands where everyone else is already hiring. **Do you hire where the pool is deepest, or where it is quieter?**
 
 **Tab 2 — What to budget**
 
-- *Context:* Headcount is the largest line item in an entry budget, and a single market-wide average hides the thing you are actually budgeting for.
-- *Finding:* Median monthly pay ranges from around S$4,500 in Public / Civil Service to S$7,500 in Legal, and seniority moves the number far more than sector 
-- *Decision:* Team shape drives the budget more than sector choice. The question is **whether one senior hire or three mid-level hires better fits the entry plan.**
+- **Context:** Headcount is the largest line item in an entry budget, and a single market-wide average hides the thing you are actually budgeting for.
+- **Finding:** Median monthly pay ranges from around S$4,000 in Admin/Secretarial to S$6,500 in Sales/Business Dev, and seniority moves the number far more than sector 
+- **Decision:** Team shape drives the budget more than sector choice. The question is **whether one senior hire or three mid-level hires better fits the entry plan.**
 
 **Tab 3 — Where hiring looks tighter**
 
-- *Context:* A sector that pays well is not necessarily easy to staff, and a cheap sector is not necessarily easy either.
-- *Finding:* The filtered view averages 2.26 applications per vacancy, but Admin/Secretarial role in IT at $3,000 averages 1.70 applicants per vacancy against an IT / Infrastructure figure of 2.17. Low pay and low response occur together.
-- *Decision:* Where response is thin, salary alone may not close the gap. The choice is **whether to pay above the sector median, widen the role definition, or plan for a longer time-to-hire.**
+- **Context:** A sector that pays well is not necessarily easy to staff, and a cheap sector is not necessarily easy either.
+- **Finding:** Information Technology and Banking and Finance sit among the highest-paying sectors at around S$7,000 median, yet applicant response splits sharply within them. Software Engineering roles draw about 1.45 applications per vacancy against a market average of 2.45, while IT / Infrastructure roles in the same sector draw around 2.40. The same pay band, very different applicant depth.
+- **Decision:** Attracting applicants is not the constraint in this scope, the budget is. The question is **whether the premium buys enough capability to justify hiring here rather than in a cheaper adjacent sector.**
 
 Act 3 deliberately stops at the choice. The dashboard's job is to make the comparison unavoidable; the decision belongs to the client carrying the risk.
 
