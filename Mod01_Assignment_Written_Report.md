@@ -109,48 +109,73 @@ Two CSVs — one at posting grain, one at posting × industry grain — which th
 
 ## 3. Dashboard Walkthrough (Streamlit)
 
-The dashboard is a Streamlit app. The client picks a target industry or role and gets prevailing salary ranges plus a read on hiring pool depth.
+The dashboard is a Streamlit app built around a single question: **if we hire in Singapore, where should we hire, what will it cost, and how hard will it be?** 
 
-### The counting rule
+### Design principle: three questions, three tabs
 
-The app's central mechanic: filters match on the long table, then join surviving job posting IDs back to the posting-level table to count.
+The header states the purpose in plain language:
 
-### Main Filters (sidebar)
-
-| Control | Business question it serves |
+| Tab | Question it answers |
 |---|---|
-| Date range | "What does the market look like over the most recent period?" |
-| Industry (with Any / All logic) | "Show me IT" vs "show me roles sitting at the intersection of Finance *and* IT" |
-| Role family | "Benchmark by job role type" |
-| Title contains | Free-text search for niche roles the taxonomy doesn't name |
-| Minimum postings for a benchmark | Suppresses thin slices so a median is never built on a handful of jobs |
+| **Where demand sits** | Which sectors and job families are actually hiring and over what period |
+| **What to budget** | What the role costs: by sector, by experience band and whether that has moved over time |
+| **Where hiring looks tighter** | Which sectors and roles attract the weakest candidate response, i.e. where hiring will be hardest |
+| **Filtered data** | The underlying postings |
 
-The Any/All control is disabled until an industry is selected, so it cannot be used in a state where it means nothing. Date filtering uses the *original* posting date so a repost doesn't shift a job into a later month.
+A shared sidebar filters every tab at once, so the user carries one consistent market definition across all three questions.
 
-### Primary Main views
+### Headline strip
 
-**Headline metric cards** — median salary, mean salary, number of hiring companies, average monthly vacancies. 
+Five metric cards sit above the tabs: 
+- postings in view
+- hiring companies
+- median monthly salary
+- average applications per vacancy
+- average application rate. 
 
-**Median** The median carries a delta against the whole-market median, so a client immediately sees whether their target industry pays above or below market. 
+Each with a delta against the whole dataset. Above them, a one-sentence auto-written summary states which sector leads the filtered view, what it pays, and whether candidate response is stronger, weaker or in line with the wider market. The user gets a readable answer before looking at a single chart.
 
-**Mean** The mean carries a delta against the median. When the mean sits higher, a tail of high-paying roles is pulling it up, which is itself a finding. 
+### Measuring hiring difficulty
 
-Salary maths always runs on reliable rows regardless of the sidebar toggle, and the number of postings excluded is stated on screen.
+The dashboard uses **candidate response**: applications per vacancy, and applications as a share of views.
 
-### Secondary Charts
+These feed a **sector hiring tightness score.** A weighted rank combining low applications per vacancy, low application rate, and high median pay which is presented as a four-level label (Easier / Balanced / Tighter / Tightest) rather than a raw number, because the underlying score is ordinal, not a quantity. 
 
-**Median salary by industry (top 10)** — built on the exploded table, because this chart is *supposed* to count per industry. 
+A scatter "hiring map" places every sector on pay versus candidate response with median crosshairs, so the user can see the whole market at once: bottom-right is expensive and hard to fill, top-left is cheap and easy.
 
-**Position × employment heatmap** — colour is the median of each cell, not the maximum, so one outlier posting cannot light up a whole cell. Tooltips show the posting count behind each cell. 
+An always-visible explainer panel defines both metrics and states why repost count was rejected. The assumption is on the page, not buried in the code.
 
-**Salary spread by industry** — a scatter where each point is a posting. This shows the *distribution* behind each median, which a bar chart hides. For a client deciding an offer band, the spread matters more than the midpoint.
+### Guardrails carried into the design
 
-**Sunburst: industry → position level → employment type** — the structural shape of the market. 
+- **Minimum postings per benchmark:** (slider, default 100) No median or response figure is drawn on a thin slice.
+- **Salary-clean rows only:** (on by default) Pay maths runs on the reliable subset while demand counts use every posting
+- **Coverage shading on the time series:** Months before the volume ramp are shaded and captioned as likely collection artefact rather than market contraction. The chart title says "becomes more reliable from March 2023 onward" instead of implying growth.
+- **Salary trend split by experience band:** Rather than one overall line, because a single trend would move with the seniority mix rather than with pay.
+- **Unclassified roles excluded from the role comparison:** Roles carrying a usable role label stated on screen.
 
+### The narrative structure: Context → Finding → Decision
 
-### How it answers the business question
+Each tab is written to carry the reader through **three acts**, with the chart living in the middle:
 
-A user filtering to their target industry and seniority reads, in one screen: what the role pays relative to the wider market, how wide the range is, how many companies are hiring and how many postings the salary figure is actually based on.
+**Tab 1 — Where demand sits**
+
+- *Context:* You are entering a market of 619,000 postings and 52,800 hiring companies
+- *Finding:* Demand is concentrated where Information Technology leads with 68,186 postings, and the market leans mid-level, with 2–4 years the largest experience band by a wide margin.
+- *Decision:* Your entry team will be competing hardest in the sectors and seniority bands where everyone else is already hiring. **Do you hire where the pool is deepest, or where it is quieter?**
+
+**Tab 2 — What to budget**
+
+- *Context:* Headcount is the largest line item in an entry budget, and a single market-wide average hides the thing you are actually budgeting for.
+- *Finding:* Median monthly pay ranges from around S$4,500 in Public / Civil Service to S$7,500 in Legal, and seniority moves the number far more than sector 
+- *Decision:* Team shape drives the budget more than sector choice. The question is **whether one senior hire or three mid-level hires better fits the entry plan.**
+
+**Tab 3 — Where hiring looks tighter**
+
+- *Context:* A sector that pays well is not necessarily easy to staff, and a cheap sector is not necessarily easy either.
+- *Finding:* The filtered view averages 2.26 applications per vacancy, but Admin/Secretarial role in IT at $3,000 averages 1.70 applicants per vacancy against an IT / Infrastructure figure of 2.17. Low pay and low response occur together.
+- *Decision:* Where response is thin, salary alone may not close the gap. The choice is **whether to pay above the sector median, widen the role definition, or plan for a longer time-to-hire.**
+
+Act 3 deliberately stops at the choice. The dashboard's job is to make the comparison unavoidable; the decision belongs to the client carrying the risk.
 
 ---
 
