@@ -1,8 +1,8 @@
 # Singapore Job Market Benchmarking Dashboard
 
-This project is created to do exploratory data analysis (EDA), cleaning and normalizing data to be build into a functional dashboard that provides insights for companies who wish to hire in Singapore.
+This project performs exploratory data analysis (EDA), cleans and normalizes the data, and builds it into a functional dashboard providing hiring insights for companies in Singapore.
 
-Focus will be EDA and cleaning pipeline for [SGJobData.csv], with an interactive Streamlit dashboard for exploring the results.
+Focus will be EDA and cleaning pipeline for [`SGJobData.csv`], with an interactive Streamlit dashboard for exploring the results.
 
 ## Prerequisites
 
