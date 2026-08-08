@@ -1,5 +1,6 @@
+/data/*
+!/data/.gitkeep
 .DS_Store
 app.py
 SGJobData_categories.csv
 SGJobData_clean.csv
-/data/*
