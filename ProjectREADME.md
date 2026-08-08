@@ -49,13 +49,13 @@ The dashboard opens at `http://localhost:8501`.
 - On Mac, use Ctrl + c
 
 ## Report
-See [`Mod01_Assignment_Written_Report.md`](./report.md) for the full written analysis and findings.
+See [`Mod01_Assignment_Written_Report.md`] for the full written analysis and findings.
 
 ## Notes
 - The notebook must be run in full before launching the dashboard: `app.py` will 
   raise a `FileNotFoundError` if `SGJobData_clean.csv` and `SGJobData_categories.csv` doesn't exist yet.
 - Rows with missing values in `<column>` are dropped during cleaning, not imputed 
-  see the "Cleaning Approach" section of [`Mod01_Assignment_Written_Report.md`](./report.md) for the reasoning.
+  see the "Cleaning Approach" section of [`Mod01_Assignment_Written_Report.md`] for the reasoning.
 - Date columns are parsed assuming `DD/MM/YYYY` format: this matches the source 
   data.
 - **Pandas version-dependent frequency alias**: both the cleaning notebook 
