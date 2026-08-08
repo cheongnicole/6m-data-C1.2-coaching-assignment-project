@@ -85,7 +85,7 @@ Counting postings off the exploded table would count a job in three industries t
 
 A set of unit-conversion rules repaired salaries quoted hourly or annually into a common monthly basis, applied in a deliberate order because an early fix can reveal what a later rule needs to see. Any outliers are not dropped and were flagged instead.
 
-**Flag, don't delete.** Throughout the notebook, a row with one bad field is never deleted. The untrusted *value* is blanked or a flag is set, and the row survives:
+**Flagging outliers, refrain from deleting.** Throughout the notebook, a row with one bad field is never deleted. The untrusted *value* is blanked or a flag is set, and the row is retained to be filtered out later:
 
 | Problem | Response |
 |---|---|
